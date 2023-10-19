@@ -3,13 +3,14 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const config = require("./config/config.js")
 const {connectToDatabase} = require("./repository/database.js");
-const {va} = require("./middlewares/validationHandler.js")
 
+const authMiddleware = require("./middlewares/authMiddleware.js")
 const {registeration} = require('./controllers/register.js');
 const {login} = require('./controllers/login.js');
 const {logout} = require('./controllers/logout.js');
-// const userInfo = require('./controllers/userInfo.js');
+const {userInfo} = require('./controllers/userInfo.js');
 const authValidator = require('./middlewares/authValidator.js');
+const {userAuthentication} = require("./controllers/userAuthentication.js")
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ app.post("/register", authValidator.registrationValidator, registeration);
 app.post("/login", authValidator.loginValidator, login);
 app.delete("/logout", logout);
 app.get("/profile/:username", authMiddleware.checkAuthentication, userInfo);
+app.post("/authentication", userAuthentication);
 
 // app.post("/register",(req, res)=>{
 //     res.send(["Response from register!!!!" ,req.body]);

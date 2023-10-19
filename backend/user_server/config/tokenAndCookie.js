@@ -11,9 +11,18 @@ function generateToken(user) {
     });
     return token;
 }
+function decodeToken(token) {
+    try{
+    const secretKey = JWT.secretKey;
+    const decoded = jwt.verify(token, secretKey);
+    return {username: decoded.username, email:decoded.email}
+    }catch(err) {
+        return null;
+    }
+}
 
-function setCookie(res, token) {
-    res.cookie(COOKIE.authCookieName, token, {
+function setCookie(res, token, username) {
+    res.cookie(COOKIE.authCookieName+'/'+username, token, {
         httpOnly: true,
         maxAge: COOKIE.expiryTime,
         signed: true,
@@ -22,5 +31,5 @@ function setCookie(res, token) {
 
 
 module.exports = {
-    setCookie,generateToken
+    setCookie,generateToken, decodeToken
 }
