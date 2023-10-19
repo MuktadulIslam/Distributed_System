@@ -37,7 +37,7 @@ const loginValidator = [
             try {
                 const exists = await isEmailExists(email);
                 if (!exists) {
-                    throw new Error(EMAIL_NOT_FOUND);
+                    throw new Error(config.EMAIL_NOT_FOUND);
                 }
             } catch (err) {
                 throw new Error(err.message);
