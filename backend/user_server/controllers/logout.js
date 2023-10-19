@@ -3,7 +3,7 @@ async function logout(req, res) {
     try {
         let username;
         try {
-            username = req.body.username.toLowerCase();
+            username = req.body.username.replace(/\s/g, '').toLowerCase();
         } catch (err) {
             res.status(400).json({ message: config.USERNAME_REQUIRED });
             return;

@@ -3,7 +3,7 @@ const { decodeToken } = require("../config/tokenAndCookie.js");
 
 async function userInfo(req, res) {
     try {
-        const username = String(req.params.username);
+        const username = String(req.params.username).replace(/\s/g, '').toLowerCase();
         const cookieName = config.COOKIE.authCookieName+'/'+username;
         const token = req.cookies[cookieName];
 

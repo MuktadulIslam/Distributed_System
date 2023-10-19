@@ -11,8 +11,7 @@ async function login(req, res) {
             if (err) {
                 res.status(500).json({ message: 'System failed in password compare' });
             } else if (result) {
-                console.log(generateToken(user))
-                setCookie(res, generateToken(user),user.username.toLowerCase())
+                setCookie(res, generateToken(user),user.username.replace(/\s/g, '').toLowerCase())
                 res.status(200).json({ username: user.username, email: user.email });
             } else {
                 res.status(401).json({ message: "Passwords do not match" });

@@ -3,7 +3,7 @@ const config = require("../config/config.js");
 
 async function checkAuthentication(req, res, next) {
     try {
-        const username = String(req.params.username).toLowerCase();
+        const username = String(req.params.username).replace(/\s/g, '').toLowerCase();
         const cookieName = config.COOKIE.authCookieName+'/'+username;
         
         const secretKey = config.JWT.secretKey;
