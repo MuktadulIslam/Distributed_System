@@ -9,9 +9,9 @@ async function connectToDatabase() {
             useUnifiedTopology: true,
         });
 
-        console.log('Connected to MongoDB Notific');
+        console.log('Connected to MongoDB Notifications Database');
     } catch (error) {
-        console.error('Error connecting to MongoDB:', error);
+        console.error('Error connecting to MongoDB Notifications Database:', error);
     }
 }
 
