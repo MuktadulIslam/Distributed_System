@@ -8,6 +8,8 @@ const USERNAME_REQUIRED = "Username must be provided";
 const PASSWORD_REQUIRED = "Password must be provided";
 const EMAIL_REQUIRED = "Email must be provided";
 const VALID_EMAIL_REQUIRED = "Must be provide a valid email";
+const AUTH_VALIDATION_API = "http://localhost:5001/authentication";
+const USERNAMES_API = "http://localhost:5001/usersemail";
 const COOKIE = {
     expiryTime: 2*24*60*60,
     authCookieName: "miniLinkedInAuthCookie",
@@ -25,5 +27,7 @@ module.exports = {
     PASSWORD_REQUIRED,
     EMAIL_REQUIRED,
     VALID_EMAIL_REQUIRED,
-    COOKIE
+    COOKIE,
+    AUTH_VALIDATION_API,
+    USERNAMES_API
 }

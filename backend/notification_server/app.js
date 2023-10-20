@@ -22,7 +22,7 @@ const { connectToDatabase } = require("./repository/database.js");
 
 app.post('/notification',createNotification);
 app.get('/notification',authValidator, sendNotification)
-app.delete('/notification/:id(\\d+)',authValidator, deleteNotification);
+app.delete('/notification',authValidator, deleteNotification);
 
 // app.post('/notification',(req, res)=>{
 //     res.send(["Response from notification psot!!!!" , req.body]);
@@ -33,7 +33,7 @@ app.delete('/notification/:id(\\d+)',authValidator, deleteNotification);
 //     res.send(["Response from all notification get!!!!", "cookie= " + cookieHeader, req.query.username]);
 // });
 
-// app.delete('/notification/:id(\\d+)',(req, res)=>{
+// app.delete('/notification',(req, res)=>{
 //     const cookieHeader = req.headers.cookie;
 //     res.send(["Response from "+ req.params.id + " notification get!!!!", "cookie= " + cookieHeader]);
 // });

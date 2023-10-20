@@ -1,5 +1,6 @@
 const config = require("../config/config.js");
 const { decodeToken } = require("../config/tokenAndCookie.js");
+const {getAllUsers} = require("../repository/database.js")
 
 async function userInfo(req, res) {
     try {
@@ -13,6 +14,24 @@ async function userInfo(req, res) {
     }
 }
 
+async function usersEmail(req, res) {
+    try {
+        const users = await getAllUsers();
+        if(users) {
+            const userEmails = [];
+            users.forEach(user => {
+                userEmails.push(user.email)
+            });
+            res.status(200).json(userEmails);
+        }
+        else {
+            res.status(204).json({ message: "No  User Found" });
+        }
+    } catch (err) {
+        res.status(500).json({ message: config.SERVER_ERROR });
+    }
+}
+
 module.exports = {
-    userInfo
+    userInfo, usersEmail
 }

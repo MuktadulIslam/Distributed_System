@@ -3,12 +3,16 @@ const { NOTICATION_DATABASE } = require("../config/config.js")
 const Notification = require("./model/Notification.js")
 
 async function connectToDatabase() {
-  try {
-    await mongoose.connect('mongodb://localhost:6002/'+NOTICATION_DATABASE);
-    console.log('Connected to MongoDB Notific');
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-  }
+    try {
+        await mongoose.connect('mongodb://localhost:6003/' + NOTICATION_DATABASE, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        console.log('Connected to MongoDB Notific');
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+    }
 }
 
 async function createOne(notification) {
@@ -21,16 +25,26 @@ async function createOne(notification) {
     }
 }
 
-async function findOneByPostID(postID) {
+async function findByEmail(email) {
     try {
-        const existed = await Notification.findOne({ postID });
-        return existed;
+        const user = email;
+        const notifications = await Notification.find({ user }).select({ _id: 0 });
+        return notifications;
     } catch (err) {
         console.log(err);
         throw new Error("An error occurred getting notification information");
     }
 }
 
+async function deleteByPostIDAndUser(postID, user) {
+    try {
+        await Notification.deleteMany({ postID, user });
+    } catch (err) {
+        console.log(err);
+        throw new Error("An error occurred while deleting the notification");
+    }
+}
+
 module.exports = {
-    connectToDatabase, createOne, findOneByPostID
+    connectToDatabase, createOne, findByEmail, deleteByPostIDAndUser
 };
