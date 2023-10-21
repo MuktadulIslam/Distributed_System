@@ -5,7 +5,6 @@ export const loginService = async (email, password, navigate) => {
     try {
         const formData = { email: email, password: password }
         axiosInstance.post(`/user/login`, formData).then((response) => {
-            console.log(response.data)
             if (response.status == 200) {
                 sessionStorage.setItem('isLoggedIn', 'true');
                 sessionStorage.setItem('userData', JSON.stringify(response.data));
@@ -30,3 +29,32 @@ export const loginService = async (email, password, navigate) => {
         console.log("err=", err)
     }
 };
+
+export const registrationService = async (email, password, username, navigator) => {
+    try {
+        const formData = { email: email, password: password, username: username }
+        axiosInstance.post(`/user/register`, formData).then((response) => {
+            if (response.status == 200) {
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userData', JSON.stringify(response.data));
+                navigator(`/${response.data.username.replace(/\s/g, '').toLowerCase()}`)
+            }
+            else {
+                console.log("Unknow error");
+            }
+        }).catch((error) => {
+            console.log(error.response.data)
+            if (error.response.status == 409) {
+                alert("Duplicate Email or Password...");
+            }
+            else if (error.response.status == 400) {
+                alert("The request cannot be fulfilled due to bad syntax...");
+            }
+            else {
+                alert("Enternal server error...");
+            }
+        });
+    } catch (err) {
+        console.log("err=", err)
+    }
+}

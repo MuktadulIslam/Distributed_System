@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import Axios from 'axios';
-import constant from '../messageConstant';
 import { Link, useNavigate } from 'react-router-dom';
+import {registrationService} from '../services/accountServices.js'
 
 export default function Registration(props) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [name, setName] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const navigate = useNavigate();
+	const navigator = useNavigate();
 
 	const registration = async (event) => {
 		event.preventDefault();
@@ -22,32 +21,7 @@ export default function Registration(props) {
 			document.getElementById("confirmpassword").value = '';
 			return;
 		}
-
-
-		const formData = { email: email, password: password, name: name }
-
-		console.log(formData)
-
-		await Axios.post(constant.SERVER_IP + "registration", formData).then((response) => {
-			if (response.data.message == constant.SUCCESS) {
-                alert("Account Creation successfully done!!!!")
-				sessionStorage.setItem('isLoggedIn', 'true');
-				sessionStorage.setItem('userData', JSON.stringify(formData));
-				props.setUser(formData);
-				navigate('/profile')
-            }
-			else if (response.data.message == constant.SERVER_ERROR) {
-				alert('Enternal server error');
-			}
-			else if (response.data.message == constant.DATA_DUPLICATION) {
-				alert('This email is already taken. Try whit another Email');
-			}
-			else {
-				console.log('Unkown error');
-			}
-		}).catch((error) => {
-			alert('An error occurred while sending the data:');
-		});
+		await registrationService(email, password, name, navigator)
 	}
 
 	return (
