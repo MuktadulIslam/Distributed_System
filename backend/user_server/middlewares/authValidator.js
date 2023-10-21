@@ -13,7 +13,7 @@ const registrationValidator = [
         .withMessage(config.VALID_EMAIL_REQUIRED)
         .custom(async (email) => {
             try {
-                const exists = await isExists(email, req.body.username);
+                const exists = await isExists(email, body("username"));
                 if (exists) {
                     throw new Error(config.DUPLICATE_EMAIL);
                 }

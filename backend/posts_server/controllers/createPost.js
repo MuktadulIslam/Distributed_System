@@ -6,22 +6,22 @@ const axios = require("axios")
 async function createPost(req, res) {
     try {
         const authorName = req.body.authorName;
+        const authorEmail = req.body.authorEmail;
         const article = req.body.article;
         // const image_url = req.body.image_url;
         const image_url = "null";
         const postTime = new Date();
         const postID = uuidv4();
 
-        await createOne({ postID: postID, authorName: authorName, postTime: postTime, article: article, image_url: image_url })
+        await createOne({ postID: postID, authorName: authorName, authorEmail: authorEmail, postTime: postTime, article: article, image_url: image_url })
             .then(() => {
                 const options = {
                     method: 'POST',
                     url: config.NOTIFICATION_API,
-                    data: { authorName: authorName, postID: postID, postTime:  postTime}
+                    data: { authorName: authorName,authorEmail: authorEmail, postID: postID, postTime:  postTime}
                 };
 
                 axios.request(options).then((response) => {
-                    console.log(response.data);
                     if (response.status === 200) {
                         res.status(200).json({ message: 'Notification Created' });
                     }

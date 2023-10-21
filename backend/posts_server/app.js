@@ -16,14 +16,14 @@ app.use(
 
 
 const {createPost} = require("./controllers/createPost.js")
-const {sendPost,sendPosts} = require("./controllers/PostSender.js")
+const {sendPost,sendAllPost} = require("./controllers/PostSender.js")
 const {authValidator} = require("./middlewares/authValidator.js")
 const {singleFileUploader} = require("./middlewares/fileUploder.js")
 
 // app.post('/post',authValidator,singleFileUploader('image'), createPost);
 app.post('/post',authValidator, createPost);
-app.get('/post',authValidator, sendPosts);
-app.get("/post/:id(\\d+)",authValidator, sendPost)
+app.get('/post',authValidator, sendAllPost);
+app.get("/post/:id",authValidator, sendPost)
 
 
 // app.post("/post",(req, res)=>{

@@ -5,22 +5,24 @@ async function createNotification(req, res) {
     try {
         const postID = req.body.postID;
         const authorName = req.body.authorName;
+        const authorEmail = req.body.authorEmail;
         const postTime = req.body.postTime;
 
         const response = await axios.get(USERNAMES_API);
-        console.log("\n\n\nhello\n\n\n");
 
         if (response.status === 200) {
             const alluserEmails = response.data;
 
             // Use a for...of loop to iterate and await each createOne operation
             for (const email of alluserEmails) {
-                await createOne({
-                    postID: postID,
-                    authorName: authorName,
-                    postTime: postTime,
-                    user: email,
-                });
+                if (authorEmail !== email) {
+                    await createOne({
+                        postID: postID,
+                        authorName: authorName,
+                        postTime: postTime,
+                        user: email,
+                    });
+                }
             }
             res.status(200).json({ message: 'Notification Created' });
         }

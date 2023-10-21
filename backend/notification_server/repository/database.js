@@ -36,9 +36,11 @@ async function findByEmail(email) {
     }
 }
 
-async function deleteByPostIDAndUser(postID, user) {
+async function deleteByPostIDAndEmail(postID, email) {
     try {
-        await Notification.deleteMany({ postID, user });
+        const user = email;
+        const deleteStatus = await Notification.deleteOne({ postID, user });
+        return deleteStatus.deletedCount;
     } catch (err) {
         console.log(err);
         throw new Error("An error occurred while deleting the notification");
@@ -46,5 +48,5 @@ async function deleteByPostIDAndUser(postID, user) {
 }
 
 module.exports = {
-    connectToDatabase, createOne, findByEmail, deleteByPostIDAndUser
+    connectToDatabase, createOne, findByEmail, deleteByPostIDAndEmail
 };
