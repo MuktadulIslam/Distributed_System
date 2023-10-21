@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const {createOne} = require("../repository/database.js");
+const {createOne} = require("../repository/databaseCRUD.js");
 const { setCookie, generateToken } = require('../config/tokenAndCookie.js');
 
 async function registeration(req, res) {

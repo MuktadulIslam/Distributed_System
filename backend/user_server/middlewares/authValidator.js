@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 const { validationHandler } = require("./validationHandler.js");
-const { isEmailExists, isExists } = require("../repository/database.js");
+const { isEmailExists, isExists } = require("../repository/databaseCRUD.js");
 const config = require('../config/config.js')
 
 const registrationValidator = [
@@ -11,12 +11,13 @@ const registrationValidator = [
         .withMessage(config.EMAIL_REQUIRED)
         .isEmail()
         .withMessage(config.VALID_EMAIL_REQUIRED)
-        .custom(async (email) => {
+        .custom(async (email, { req }) => {
             try {
-                const exists = await isExists(email, body("username"));
+                const exists = await isExists(email, req.body.username);
                 if (exists) {
                     throw new Error(config.DUPLICATE_EMAIL);
                 }
+                
                 return true;
             } catch (err) {
                 throw new Error(err.message);

@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { findOneByEmail } = require("../repository/database.js")
+const { findOneByEmail } = require("../repository/databaseCRUD.js")
 const { setCookie, generateToken } = require('../config/tokenAndCookie.js');
 
 async function login(req, res) {

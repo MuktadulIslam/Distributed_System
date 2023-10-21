@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const config = require("./config/config.js")
-const { connectToDatabase } = require("./repository/database.js");
+const { connectToDatabase } = require("./repository/databaseCRUD.js");
+const { createMongoDatabase } = require("./repository/mongoDB.js");
 
 const authMiddleware = require("./middlewares/authMiddleware.js")
 const { registeration } = require('./controllers/register.js');
@@ -10,7 +11,7 @@ const { login } = require('./controllers/login.js');
 const { logout } = require('./controllers/logout.js');
 const { userInfo, usersEmail } = require('./controllers/userInfo.js');
 const authValidator = require('./middlewares/authValidator.js');
-const { userAuthentication } = require("./controllers/userAuthentication.js")
+const { userAuthentication } = require("./controllers/userAuthentication.js");
 
 
 
@@ -34,13 +35,13 @@ app.post("/authentication", userAuthentication);
 app.get("/usersemail", usersEmail);
 
 
-connectToDatabase()
-    .then(() => {
-        app.listen(config.PORT_NUMBER, () => {
-            console.log('User Server listening on port ' + config.PORT_NUMBER + '...');
-        });
-    })
-    .catch((error) => {
-        console.error('Server startup error:', error);
+async function startTheServer() {
+    await createMongoDatabase();
+    await connectToDatabase();
+    await app.listen(config.PORT_NUMBER, () => {
+        console.log('User Server listening on port ' + config.PORT_NUMBER + '...');
     });
+}
+
+startTheServer()
 

@@ -1,6 +1,6 @@
 const config = require("../config/config.js");
 const { decodeToken } = require("../config/tokenAndCookie.js");
-const {getAllUsers} = require("../repository/database.js")
+const {getAllUsers} = require("../repository/databaseCRUD.js")
 
 async function userInfo(req, res) {
     try {
