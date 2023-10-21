@@ -4,8 +4,8 @@ const { exec } = require('child_process');
 const os = require('os');
 
 function createMongoDatabase() {
-	const dbPath = 'user_mongoDB';
-	const port = 6001; // MongoDB default port
+	const dbPath = 'post_mongoDB';
+	const port = 6002; // MongoDB default port
 
 	// Check if the folder already exists
 	if (!fs.existsSync(dbPath)) {

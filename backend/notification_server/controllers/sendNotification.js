@@ -1,4 +1,4 @@
-const { findByEmail } = require("../repository/database.js")
+const { findByEmail } = require("../repository/databaseCRUD.js")
 const {EMAIL_REQUIRED, SERVER_ERROR} = require ("../config/config.js")
 
 async function sendNotification(req, res) {

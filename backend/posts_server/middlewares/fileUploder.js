@@ -31,6 +31,9 @@ function singleFileUploader(name) {
                         }
                     });
                 }
+                else{
+                    req.body.image_url = null;
+                }
                 next();
             }
         });

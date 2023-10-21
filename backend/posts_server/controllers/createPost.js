@@ -1,6 +1,6 @@
 const config = require("../config/config.js")
 const { v4: uuidv4 } = require('uuid');
-const { createOne } = require("../repository/database.js")
+const { createOne } = require("../repository/databaseCRUD.js")
 const axios = require("axios")
 
 async function createPost(req, res) {

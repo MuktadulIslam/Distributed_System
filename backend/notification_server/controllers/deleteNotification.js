@@ -1,4 +1,4 @@
-const { deleteByPostIDAndEmail } = require("../repository/database.js")
+const { deleteByPostIDAndEmail } = require("../repository/databaseCRUD.js")
 const {SERVER_ERROR} = require ("../config/config.js")
 
 async function deleteNotification(req, res) {

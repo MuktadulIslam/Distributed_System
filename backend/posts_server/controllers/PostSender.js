@@ -1,5 +1,5 @@
 const config = require("../config/config.js")
-const { getAllPost, findByPostID } = require("../repository/database.js")
+const { getAllPost, findByPostID } = require("../repository/databaseCRUD.js")
 async function sendAllPost(req, res) {
     try {
         res.status(200).json(await getAllPost());

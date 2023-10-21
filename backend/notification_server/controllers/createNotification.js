@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { USERNAMES_API } = require("../config/config.js")
-const { createOne } = require("../repository/database.js")
+const { createOne } = require("../repository/databaseCRUD.js")
 async function createNotification(req, res) {
     try {
         const postID = req.body.postID;
