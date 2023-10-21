@@ -8,6 +8,7 @@ async function checkAuthentication(req, res, next) {
         
         const secretKey = config.JWT.secretKey;
         const token = req.cookies[cookieName];
+        console.log(token)
         jwt.verify(token, secretKey, (err, decoded) => {
             if (err) {
                 res.status(401).json({ message: 'Unauthorized Request' });

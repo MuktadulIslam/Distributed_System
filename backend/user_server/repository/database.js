@@ -24,9 +24,22 @@ async function createOne(user) {
     }
 }
 
-async function isEmailExists(email) {
+
+async function isExists(email, username) {
     try {
         const existedUser = await User.findOne({ email,username });
+        if (existedUser) return true;
+        else false;
+    } catch (err) {
+        console.log(err);
+        throw new Error("An error occurred while verifying email");
+    }
+}
+
+
+async function isEmailExists(email) {
+    try {
+        const existedUser = await User.findOne({ email });
         if (existedUser) return true;
         else false;
     } catch (err) {
@@ -56,5 +69,5 @@ async function getAllUsers() {
 }
 
 module.exports = {
-    connectToDatabase, createOne, isEmailExists, findOneByEmail, getAllUsers
+    connectToDatabase, createOne, isEmailExists, findOneByEmail, getAllUsers, isExists
 };
