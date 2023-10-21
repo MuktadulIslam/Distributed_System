@@ -22,12 +22,12 @@ function decodeToken(token) {
 }
 
 function setCookie(res, token, username) {
-    console.log(COOKIE.authCookieName+'/'+username+'='+ token)
     res.cookie(COOKIE.authCookieName+'/'+username, token, {
         httpOnly: true,
         maxAge: COOKIE.expiryTime,
-        signed: true,
+        // signed: true,
     });
+    // res.cookie(COOKIE.authCookieName+'/'+username, "token")
 }
 
 
