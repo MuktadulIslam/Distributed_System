@@ -9,7 +9,7 @@ async function createPost(req, res) {
         const authorEmail = req.body.authorEmail;
         const article = req.body.article;
         // const image_url = req.body.image_url;
-        const image_url = "null";
+        const image_url = null;
         const postTime = new Date();
         const postID = uuidv4();
 

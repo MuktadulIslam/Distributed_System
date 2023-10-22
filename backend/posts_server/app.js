@@ -23,8 +23,8 @@ const { singleFileUploader } = require("./middlewares/fileUploder.js")
 
 // app.post('/post',authValidator,singleFileUploader('image'), createPost);
 app.post('/post', authValidator, createPost);
-app.get('/post', authValidator, sendAllPost);
-app.get("/post/:id", authValidator, sendPost)
+app.get('/post', sendAllPost);
+app.get("/post/:id", sendPost)
 
 
 async function startTheServer() {

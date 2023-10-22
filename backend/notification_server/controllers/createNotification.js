@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { USERNAMES_API } = require("../config/config.js")
+const { USERNAMES_API, MAC_NOTIFICATION_AGE } = require("../config/config.js")
 const { createOne } = require("../repository/databaseCRUD.js")
 async function createNotification(req, res) {
     try {
@@ -21,6 +21,7 @@ async function createNotification(req, res) {
                         authorName: authorName,
                         postTime: postTime,
                         user: email,
+                        expiryDate: new Date(Date.now() + MAC_NOTIFICATION_AGE)
                     });
                 }
             }

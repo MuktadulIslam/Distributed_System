@@ -17,6 +17,10 @@ const notificationSchema = new mongoose.Schema({
     user: {
         type: String,
         required: true
+    },
+    expiryDate: {
+        type: Date,
+        expires: 0
     }
     
 }, { versionKey: false });

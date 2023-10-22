@@ -4,6 +4,7 @@ const config = require("../config/config.js")
 async function authValidator(req, res, next) {
     try {
         try {
+            console.log(req.query)
             const username = req.query.username.replace(/\s/g, '').toLowerCase();
             const cookieName = config.COOKIE.authCookieName + '/' + username;
             const token = req.cookies[cookieName];
@@ -17,6 +18,7 @@ async function authValidator(req, res, next) {
             }
 
         } catch (err) {
+            console.log(err)
             res.status(400).json({ message: config.USERNAME_REQUIRED });
             return;
         }

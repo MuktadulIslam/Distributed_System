@@ -4,9 +4,10 @@ const config = require("../config/config.js")
 async function authValidator(req, res, next) {
     try {
         try {
-            const username = req.query.username.replace(/\s/g, '').toLowerCase();
+            const username = req.body.authorName.replace(/\s/g, '').toLowerCase();
             const cookieName = config.COOKIE.authCookieName + '/' + username;
             const token = req.cookies[cookieName];
+            console.log(token)
             const response = await axios.post(`${config.AUTH_VALIDATION_API}`, { token });
             if (response.status === 200) {
                 next()
