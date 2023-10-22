@@ -5,20 +5,23 @@ const axios = require("axios")
 
 async function createPost(req, res) {
     try {
+        console.log("hi1")
         const authorName = req.body.authorName;
         const authorEmail = req.body.authorEmail;
         const article = req.body.article;
         // const image_url = req.body.image_url;
         const image_url = null;
         const postTime = new Date();
+        console.log("hi2")
         const postID = uuidv4();
+        console.log(postID, authorName, authorEmail, postTime, article, image_url)
 
         await createOne({ postID: postID, authorName: authorName, authorEmail: authorEmail, postTime: postTime, article: article, image_url: image_url })
             .then(() => {
                 const options = {
                     method: 'POST',
                     url: config.NOTIFICATION_API,
-                    data: { authorName: authorName,authorEmail: authorEmail, postID: postID, postTime:  postTime}
+                    data: { authorName: authorName, authorEmail: authorEmail, postID: postID, postTime: postTime }
                 };
 
                 axios.request(options).then((response) => {
@@ -36,9 +39,11 @@ async function createPost(req, res) {
                 console.log(error)
                 res.status(500).json({ message: 'Post creation failed' });
             });
+            return;
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Post creation failed' });
+        return;
     }
 }
 

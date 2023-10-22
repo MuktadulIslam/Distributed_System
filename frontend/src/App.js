@@ -1,12 +1,12 @@
 import './App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 
-import Login from './components2/Login';
-import Registration from './components2/Registration';
-import ProfileBody from './components2/profile/ProfileBody';
+import Login from './components/Login';
+import Registration from './components/Registration';
+import ProfileBody from './components/profile/ProfileBody';
 import { profileService } from './services/userProfileService';
 
 const PrivateRoute = () => {

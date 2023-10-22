@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import { getAllNotificationByService,deleteNitificationByService } from '../../services/notificationService';
+import { getAllNotificationByService, deleteNitificationByService } from '../../services/notificationService';
 
 export default function Notification(props) {
 	let loadFirstTime = false;
@@ -24,7 +24,10 @@ export default function Notification(props) {
 
 	const removeNotification = async (event, postID) => {
 		event.preventDefault();
-		await deleteNitificationByService(user.username,user.email, postID);
+		const deleted = await deleteNitificationByService(user.username, user.email, postID);
+		if (deleted) {
+			setAllNotifications(allNotifications.filter(item => item.postID !== postID));
+		}
 	}
 
 	const getPostTime = (postDate) => {
@@ -59,7 +62,7 @@ export default function Notification(props) {
 								<div className="d-flex justify-content-between align-items-center">
 									<div><strong>{notification.authorName}</strong> added a post  ({getPostTime(notification.postTime)})</div>
 									<div>
-										<button onClick={(e) => removeNotification(e, notification.postID)}>View The Post</button>
+										<button onClick={(e) => removeNotification(e, notification.postID)}>Mark As Read</button>
 									</div>
 								</div>
 							</ListGroupItem>

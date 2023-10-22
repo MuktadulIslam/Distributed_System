@@ -21,13 +21,14 @@ export const deleteNitificationByService = async (username,email, postID) => {
           });
         if (response.status == 200) {
             console.log(response.data)
+            return true;
         }
         else {
             console.log("Unknow error");
-            return null
+            return false
         }
     } catch (err) {
         console.log("err=", err);
-        return null
+        return false
     }
 }

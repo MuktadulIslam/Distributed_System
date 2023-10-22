@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import constant from '../../messageConstant';
+import { makePostByService } from '../../services/postService';
 
 export default function Post(props) {
 	const [articleText, setArticleText] = useState('');
@@ -30,61 +31,16 @@ export default function Post(props) {
 		document.getElementById('imageInput').value = '';
 	}
 
-
-
-
-	// const post = async (event) => {
-	// 	event.preventDefault();
-
-	// 	// const formData = { article: articleText, email: user.email, name: user.name }
-	// 	const formData = { image: imageFile, article: articleText, email: user.email, name: user.name }
-	// 	console.log(formData)
-
-	// 	await Axios.post(constant.SERVER_IP + "post", formData).then((response) => {
-	// 		if (response.data.message == constant.SUCCESS) {
-	// 			alert("Status is posted successfully!!!");
-	// 			setImagePreview(null);
-	// 			setImageFile(null);
-	// 			setArticleText('');
-	// 			document.getElementById('articleTextarea').value = '';
-	// 			document.getElementById('imageInput').value = '';
-	// 		}
-	// 		else if (response.data.message == constant.SERVER_ERROR) {
-	// 			alert("Enternal server error!!!");
-	// 		}
-	// 		else {
-	// 			console.log("Unkown error!!!")
-	// 		}
-	// 	}).catch((error) => {
-	// 		alert('An error occurred while sending the data!!!');
-	// 	});
-	// }
-
 	const post = async (event) => {
 		event.preventDefault();
-
-		const formData = new FormData();
-		formData.append('image', imageFile);
-		formData.append('article', articleText);
-		formData.append('email', user.email);
-		formData.append('name', user.username);
-
-		try {
-			const response = await Axios.post(constant.SERVER_IP + 'post', formData).then((response) => {
-				console.log(response.data[1])
-			})
-
-			// if (response.data.message === constant.SUCCESS) {
-			// 	alert('Status is posted successfully!!!');
-			// 	// Rest of your code to reset the state
-			// } else if (response.data.message === constant.SERVER_ERROR) {
-			// 	alert('Internal server error!!!');
-			// } else {
-			// 	console.log('Unknown error!!!');
-			// }
-		} catch (error) {
-			alert('An error occurred while sending the data!!!');
+		const postData = {
+			authorName: user.username,
+			authorEmail: user.email,
+			article: articleText,
+			image: imageFile
 		}
+
+		makePostByService(postData)
 	};
 
 	useEffect(() => {
@@ -95,7 +51,6 @@ export default function Post(props) {
 
 	return (
 		<>
-		{/* <img src={`data:image/jpeg;base64, ${photo}`} alt="Profile" width={'200px'} height={'400px'} /> */}
 			<div className="container mt-5">
 				<h2>Make a Post</h2><br />
 				<div className="mb-3">

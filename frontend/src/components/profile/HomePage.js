@@ -7,7 +7,7 @@ export default function HomePage(props) {
     const [allPost, setAllPost] = useState([]);
 
     const getAllPostFromService = async () => {
-        const posts = await getAllPostByService(user.email)
+        const posts = await getAllPostByService(user.email, user.username)
         setAllPost(posts)
     }
 

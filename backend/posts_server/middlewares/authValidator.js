@@ -3,28 +3,31 @@ const config = require("../config/config.js")
 
 async function authValidator(req, res, next) {
     try {
-        try {
-            const username = req.body.authorName.replace(/\s/g, '').toLowerCase();
-            const cookieName = config.COOKIE.authCookieName + '/' + username;
+        const username = req.query.username || req.body.username;
+        if (username) {
+            // If username exists, replace spaces and convert to lowercase
+            const formattedUsername = username.replace(/\s/g, '').toLowerCase();
+            const cookieName = config.COOKIE.authCookieName + '/' + formattedUsername;
             const token = req.cookies[cookieName];
-            console.log(token)
-            const response = await axios.post(`${config.AUTH_VALIDATION_API}`, { token });
-            if (response.status === 200) {
-                next()
-            }
-            else {
-                res.status(401).json({ message: 'User not avilable in database' });
-                return;
-            }
 
-        } catch (err) {
-            res.status(400).json({ message: config.USERNAME_REQUIRED });
-            return;
+            const response = await axios.post(`${config.AUTH_VALIDATION_API}`, { token });
+
+            if (response.status == 200) {
+                console.log("hello");
+                next();
+            } else {
+                console.log("hello2");
+                res.status(401).json({ message: 'User not available in the database' });
+            }
+        } else {
+            console.log("hello3");
+            res.status(400).json({ message: 'Username is required' });
         }
     } catch (err) {
         console.log(err);
-        res.status(500).json({ message: config.SERVER_ERROR });
+        res.status(500).json({ message: 'Server error' });
     }
 }
+
 
 module.exports = { authValidator };

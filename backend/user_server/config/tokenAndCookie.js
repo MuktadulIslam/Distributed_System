@@ -27,6 +27,7 @@ function setCookie(res, token, username) {
         maxAge: COOKIE.expiryTime,
         // signed: true,
     });
+    console.log(COOKIE.authCookieName+'/'+username + '=' + token)
     // res.cookie(COOKIE.authCookieName+'/'+username, "token")
 }
 
