@@ -5,16 +5,12 @@ const axios = require("axios")
 
 async function createPost(req, res) {
     try {
-        console.log("hi1")
         const authorName = req.body.authorName;
         const authorEmail = req.body.authorEmail;
         const article = req.body.article;
-        // const image_url = req.body.image_url;
-        const image_url = null;
+        const image_url = req.body.image_url;
         const postTime = new Date();
-        console.log("hi2")
         const postID = uuidv4();
-        console.log(postID, authorName, authorEmail, postTime, article, image_url)
 
         await createOne({ postID: postID, authorName: authorName, authorEmail: authorEmail, postTime: postTime, article: article, image_url: image_url })
             .then(() => {

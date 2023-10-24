@@ -12,12 +12,14 @@ export default function Post(props) {
 
 	const handleImageChange = (event) => {
 		const image = event.target.files[0];
-		setImageFile(image)
+		setImageFile(event.target.files[0])
 
 		if (image) {
 			const reader = new FileReader();
-			reader.onload = () => {
+			reader.onload = (e) => {
 				setImagePreview(reader.result);
+				// const base64Image = e.target.result;
+				// setImageFile(base64Image)
 			};
 			reader.readAsDataURL(image);
 		}
@@ -33,14 +35,32 @@ export default function Post(props) {
 
 	const post = async (event) => {
 		event.preventDefault();
-		const postData = {
-			authorName: user.username,
-			authorEmail: user.email,
-			article: articleText,
-			image: imageFile
-		}
+
+		const postData = new FormData();
+		postData.append('article', articleText);
+		postData.append('authorEmail', user.email);
+		postData.append('authorName', user.username);
+
+		if (imageFile !== null) postData.append('image', imageFile);
+
+		// console.log(imageFile)
+		// const postData = {
+		// 	authorName: user.username,
+		// 	authorEmail: user.email,
+		// 	article: articleText,
+		// 	image: 'imageFile',
+		// 	username: user.username
+		// }
 
 		makePostByService(postData)
+
+		// const axiosInstance = Axios.create({
+		// 	baseURL: "http://localhost/",
+		// 	// withCredentials: true,
+		//   });
+		// const response = await axiosInstance.post('/post', postData,{
+		// 	params: {username: "muktadul"}
+		// })
 	};
 
 	useEffect(() => {

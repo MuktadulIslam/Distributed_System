@@ -17,6 +17,8 @@ const COOKIE = {
     secret: "hello world"
 }
 
+const POSTS_BUCKET = "postimages"
+
 module.exports = {
     PORT_NUMBER, 
     POST_DATABASE,
@@ -31,5 +33,6 @@ module.exports = {
     COOKIE,
     AUTH_VALIDATION_API,
     USERNAMES_API,
-    NOTIFICATION_API
+    NOTIFICATION_API,
+    POSTS_BUCKET
 }

@@ -7,7 +7,7 @@ import Nabvar from'./Nabvar';
 export default function ProfileBody(props) {
     const user = props.user;
     // console.log(user);
-    const [body, setBody] = useState(<HomePage user={user}/>);
+    const [body, setBody] = useState(<Post user={user}/>);
 
     const changebody = (bodyComponentName, event) => {
         event.preventDefault();

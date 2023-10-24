@@ -5,12 +5,8 @@ import axios from "axios";
 
 export const makePostByService = async (postData) => {
     try {
-        const response = await axiosInstance.post('/post', {
-            username: postData.authorName, // Use 'username' at the top level
-            authorName: postData.authorName,
-            authorEmail: postData.authorEmail,
-            article: postData.article,
-            image: postData.image
+        const response = await axiosInstance.post('/post', postData,{
+            params: {username: postData.get('authorName')}
         }).then((response) => {
             console.log(response.data)
             if (response.status == 200) {

@@ -1,0 +1,26 @@
+const {minioClient} = require('../config/minioClient.js')
+
+async function createBucketIfNotExists(bucketName) {
+    await minioClient.bucketExists(bucketName, async (err, exists) => {
+        if (err) {
+            console.error('Error checking bucket existence:', err);
+            return;
+        }
+
+        if (exists) {
+            console.log('Bucket already exists');
+        } else {
+            await minioClient.makeBucket(bucketName, '', (createErr) => {
+                if (createErr) {
+                    console.error('Error creating bucket:', createErr);
+                } else {
+                    console.log('Bucket created successfully:', bucketName);
+                }
+            });
+        }
+    });
+}
+
+module.exports = {
+    createBucketIfNotExists
+}
