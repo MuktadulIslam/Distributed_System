@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Link, useNavigate} from 'react-router-dom';
 import {loginService} from '../services/accountServices.js';
 
-export default function Login() {
+export default function Login(props) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
 
 	const login = async (event) => {
 		event.preventDefault();
-		await loginService(email, password, navigate)
+		await loginService(email, password, navigate, props.setUser)
 	}
 
 	return (

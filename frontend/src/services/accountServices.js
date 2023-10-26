@@ -1,13 +1,12 @@
 import axiosInstance from "../config/axiosInstance.js";
 
 
-export const loginService = async (email, password, navigate) => {
+export const loginService = async (email, password, navigate, setUser) => {
     try {
         const formData = { email: email, password: password }
         axiosInstance.post(`/user/login`, formData).then((response) => {
             if (response.status == 200) {
-                sessionStorage.setItem('isLoggedIn', 'true');
-                sessionStorage.setItem('userData', JSON.stringify(response.data));
+                setUser(response.data)
                 navigate(`/${response.data.username.replace(/\s/g, '').toLowerCase()}`)
             }
             else {
@@ -30,13 +29,12 @@ export const loginService = async (email, password, navigate) => {
     }
 };
 
-export const registrationService = async (email, password, username, navigator) => {
+export const registrationService = async (email, password, username, navigator, setUser) => {
     try {
         const formData = { email: email, password: password, username: username }
         axiosInstance.post(`/user/register`, formData).then((response) => {
             if (response.status == 200) {
-                sessionStorage.setItem('isLoggedIn', 'true');
-                sessionStorage.setItem('userData', JSON.stringify(response.data));
+                setUser(response.data)
                 navigator(`/${response.data.username.replace(/\s/g, '').toLowerCase()}`)
             }
             else {

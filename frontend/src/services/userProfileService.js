@@ -1,13 +1,12 @@
 import axiosInstance from "../config/axiosInstance.js";
 
-export const profileService = async (username, navigate) => {
+export const profileService = async (username, setUser, navigate) => {
     try {
-        axiosInstance.get(`/user/profile/${username}`).then((response) => {
-            console.log(response.data)
+        axiosInstance.get(`/user/profile/${username}`).then(async (response) => {
             if (response.status == 200) {
-                sessionStorage.setItem('isLoggedIn', 'true');
-                sessionStorage.setItem('userData', JSON.stringify(response.data));
+                await setUser(response.data)
                 navigate(`/${response.data.username.replace(/\s/g, '').toLowerCase()}`)
+                return;
             }
             else {
                 console.log("Unknow error");

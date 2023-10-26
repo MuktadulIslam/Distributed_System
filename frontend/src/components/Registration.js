@@ -21,7 +21,7 @@ export default function Registration(props) {
 			document.getElementById("confirmpassword").value = '';
 			return;
 		}
-		await registrationService(email, password, name, navigator)
+		await registrationService(email, password, name, navigator, props.setUser)
 	}
 
 	return (
