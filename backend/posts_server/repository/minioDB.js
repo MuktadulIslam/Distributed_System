@@ -1,4 +1,5 @@
-const {minioClient} = require('../config/minioClient.js')
+const { minioClient } = require('../config/minioClient.js')
+
 
 async function createBucketIfNotExists(bucketName) {
     await minioClient.bucketExists(bucketName, async (err, exists) => {
@@ -18,6 +19,23 @@ async function createBucketIfNotExists(bucketName) {
                 }
             });
         }
+
+        // Set the bucket policy to allow public access
+        const policyConfig = {
+            Version: '2012-10-17',
+            Statement: [
+                {
+                    Sid: 'MakeItPublic',
+                    Effect: 'Allow',
+                    Principal: '*',
+                    Action: ['s3:GetObject'],
+                    Resource: [`arn:aws:s3:::${bucketName}/*`],
+                },
+            ],
+        };
+
+        await minioClient.setBucketPolicy(bucketName, JSON.stringify(policyConfig));
+        console.log(`Bucket '${bucketName}' is now public.`);
     });
 }
 

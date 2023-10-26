@@ -11,7 +11,6 @@ async function createPost(req, res) {
         const image_url = req.body.image_url;
         const postTime = new Date();
         const postID = uuidv4();
-
         await createOne({ postID: postID, authorName: authorName, authorEmail: authorEmail, postTime: postTime, article: article, image_url: image_url })
             .then(() => {
                 const options = {

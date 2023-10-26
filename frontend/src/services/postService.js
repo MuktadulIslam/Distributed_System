@@ -1,7 +1,4 @@
-import rootPath from "../config/axiosConfi.js";
 import axiosInstance from "../config/axiosInstance.js";
-import axios from "axios";
-
 
 export const makePostByService = async (postData) => {
     try {
@@ -26,28 +23,22 @@ export const makePostByService = async (postData) => {
         });
     } catch (err) {
         console.log("err=", err);
-        return []
     }
 }
 
 
-export const getAllPostByService = async (email, username) => {
+export const getAllPostByService = async (username) => {
     try {
         const response = await axiosInstance.get('/post', {
             params: { username: username }
         });
-        const allPost = [];
         if (response.status == 200) {
-            response.data.forEach(post => {
-                if (post.authorEmail !== email) {
-                    allPost.push(post);
-                }
-            });
+            return response.data;
         }
         else {
             console.log("Unknow error");
+            return [];
         }
-        return allPost;
     } catch (err) {
         console.log("err=", err);
         return []

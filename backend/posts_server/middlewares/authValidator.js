@@ -4,7 +4,6 @@ const config = require("../config/config.js")
 async function authValidator(req, res, next) {
     try {
         const username = req.query.username;
-        console.log(username);
         if (username) {
             // If username exists, replace spaces and convert to lowercase
             const formattedUsername = username.replace(/\s/g, '').toLowerCase();

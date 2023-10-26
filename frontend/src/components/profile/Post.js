@@ -18,16 +18,13 @@ export default function Post(props) {
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				setImagePreview(reader.result);
-				// const base64Image = e.target.result;
-				// setImageFile(base64Image)
 			};
 			reader.readAsDataURL(image);
 		}
 	};
 
 
-	const removeImage = (event) => {
-		event.preventDefault();
+	const removeImage = () => {
 		setImagePreview(null);
 		setImageFile(null);
 		document.getElementById('imageInput').value = '';
@@ -43,24 +40,11 @@ export default function Post(props) {
 
 		if (imageFile !== null) postData.append('image', imageFile);
 
-		// console.log(imageFile)
-		// const postData = {
-		// 	authorName: user.username,
-		// 	authorEmail: user.email,
-		// 	article: articleText,
-		// 	image: 'imageFile',
-		// 	username: user.username
-		// }
+		await makePostByService(postData);
 
-		makePostByService(postData)
-
-		// const axiosInstance = Axios.create({
-		// 	baseURL: "http://localhost/",
-		// 	// withCredentials: true,
-		//   });
-		// const response = await axiosInstance.post('/post', postData,{
-		// 	params: {username: "muktadul"}
-		// })
+		removeImage();
+		document.getElementById('articleTextarea').value = '';
+		setArticleText('')
 	};
 
 	useEffect(() => {

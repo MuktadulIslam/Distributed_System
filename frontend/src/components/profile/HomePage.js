@@ -7,7 +7,7 @@ export default function HomePage(props) {
     const [allPost, setAllPost] = useState([]);
 
     const getAllPostFromService = async () => {
-        const posts = await getAllPostByService(user.email, user.username)
+        const posts = await getAllPostByService(user.username)
         setAllPost(posts)
     }
 
@@ -60,7 +60,7 @@ export default function HomePage(props) {
                                             </div>
                                         </div>
 
-                                        {post.image_url !== null ?
+                                        {post.image_url !== 'null' ?
                                             (<>
                                                 <img alt='post image' src={post.image_url}
                                                     style={{
