@@ -6,6 +6,7 @@ async function sendNotification(req, res) {
         const email = req.query.email;
         if (email) {
             const notifications = await findByEmail(email);
+            notifications.reverse()
             res.status(200).json(notifications);
         }
         else {

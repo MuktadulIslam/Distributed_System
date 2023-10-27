@@ -25,9 +25,9 @@ function setCookie(res, token, username) {
     res.cookie(COOKIE.authCookieName+'/'+username, token, {
         httpOnly: true,
         maxAge: COOKIE.expiryTime,
-        // signed: true,
+        signed: true
     });
-    console.log(COOKIE.authCookieName+'/'+username + '=' + token)
+    // console.log(COOKIE.authCookieName+'/'+username + '=' + token)
     // res.cookie(COOKIE.authCookieName+'/'+username, "token")
 }
 

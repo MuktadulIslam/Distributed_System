@@ -8,7 +8,8 @@ async function authValidator(req, res, next) {
             // If username exists, replace spaces and convert to lowercase
             const formattedUsername = username.replace(/\s/g, '').toLowerCase();
             const cookieName = config.COOKIE.authCookieName + '/' + formattedUsername;
-            const token = req.cookies[cookieName];
+            // const token = req.cookies[cookieName];
+            const token = req.signedCookies[cookieName];
 
             const response = await axios.post(`${config.AUTH_VALIDATION_API}`, { token });
 

@@ -6,7 +6,8 @@ async function userInfo(req, res) {
     try {
         const username = String(req.params.username).replace(/\s/g, '').toLowerCase();
         const cookieName = config.COOKIE.authCookieName+'/'+username;
-        const token = req.cookies[cookieName];
+        // const token = req.cookies[cookieName];
+        const token = req.signedCookies[cookieName];
 
         res.status(200).json(decodeToken(token));
     } catch (err) {
