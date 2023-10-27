@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Axios from 'axios';
-import constant from '../../messageConstant';
 import { makePostByService } from '../../services/postService';
 
 export default function Post(props) {
@@ -10,11 +8,12 @@ export default function Post(props) {
 	const user = props.user;
 	const [photo, setPhoto] = useState('')
 
-	const handleImageChange = (event) => {
+	const handleImageChange = async (event) => {
 		const image = event.target.files[0];
 		setImageFile(event.target.files[0])
 
 		if (image) {
+			// For Uer image view
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				setImagePreview(reader.result);

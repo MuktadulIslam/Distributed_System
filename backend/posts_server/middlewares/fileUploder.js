@@ -1,7 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 const { v4: uuidv4 } = require('uuid');
-const {minioClient, POSTS_BUCKET, MINIO_URL} = require('../config/minioClient.js');
+const {minioClient, POSTS_BUCKET} = require('../config/minioClient.js');
 
 
 function singleFileUploader(name) {
@@ -18,7 +18,9 @@ function singleFileUploader(name) {
 
                     const fileName = (uuidv4() + file_extension);
                     const response = await minioClient.putObject(POSTS_BUCKET, fileName, file.buffer);
-                    if(response) req.body.image_url = fileName;
+                    if(response) {
+                        req.body.image_url = minioClient.protocol + '//' + minioClient.host + ':' + minioClient.port + '/' + POSTS_BUCKET + '/' + fileName;
+                    }
                     else req.body.image_url = 'null';
                 }
                 else{
