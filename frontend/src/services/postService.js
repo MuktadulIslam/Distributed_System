@@ -5,7 +5,6 @@ export const makePostByService = async (postData) => {
         const response = await axiosInstance.post('/post', postData,{
             params: {username: postData.get('authorName')}
         }).then((response) => {
-            console.log(response.data)
             if (response.status == 200) {
                 alert("Post Successfully uploded...");
             }
