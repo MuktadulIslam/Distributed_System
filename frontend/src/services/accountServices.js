@@ -13,7 +13,6 @@ export const loginService = async (email, password, navigate, setUser) => {
                 console.log("Unknow error");
             }
         }).catch((error) => {
-            console.log(error.response.data)
             if (error.response.status == 401) {
                 alert("Password or Email don't match...");
             }
