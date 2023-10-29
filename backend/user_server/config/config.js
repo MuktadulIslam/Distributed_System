@@ -1,6 +1,5 @@
-const PORT_NUMBER = 5001;
-const USER_DATABASE = "userDB";
-const USER_TABLE = "users";
+const dotenv = require('dotenv').config();
+
 const DUPLICATE_EMAIL = "Email Already Exists";
 const EMAIL_NOT_FOUND = "Email Doesn't Exists";
 const SERVER_ERROR = "Internal Server Error";
@@ -8,6 +7,11 @@ const USERNAME_REQUIRED = "Username must be provided";
 const PASSWORD_REQUIRED = "Password must be provided";
 const EMAIL_REQUIRED = "Email must be provided";
 const VALID_EMAIL_REQUIRED = "Must be provide a valid email";
+
+const PORT_NUMBER = Number(process.env.PORT_NUMBER) || 5001;
+const USER_DATABASE = process.env.USER_DATABASE || "userDB";
+const USER_TABLE = process.env.USER_TABLE || "users";
+
 
 const JWT = {
     secretKey: "c9a892edd8c92308e8476126a9c0e14de0c0089f0cb451912c96743f0f51f30c65a9a8b8656f68a7f29e8815fee263d307b7d7c9b6324b40cad7a7bf6243cd91",

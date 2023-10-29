@@ -25,6 +25,7 @@ export default function HomePage(props) {
 
         const minutes = Math.floor(timeDiff / (1000 * 60));
         const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const day = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
         // Format the date based on the elapsed time
         if (minutes < 1) {
@@ -34,10 +35,11 @@ export default function HomePage(props) {
         } else if (hours < 24) {
             return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
         } else {
-            return `${postDate.toDateString()}`;
+            return `${day} day${hours !== 1 ? 's' : ''} ago`;
         }
-
     }
+
+
     return (
         <>
             <section className="vh-100">

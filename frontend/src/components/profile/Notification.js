@@ -31,25 +31,25 @@ export default function Notification(props) {
 	}
 
 	const getPostTime = (postDate) => {
-		const postTime = new Date(postDate);
-		const now = new Date();
-		const timeDiff = now - postTime;
+        const postTime = new Date(postDate);
+        const now = new Date();
+        const timeDiff = now - postTime;
 
-		const minutes = Math.floor(timeDiff / (1000 * 60));
-		const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const minutes = Math.floor(timeDiff / (1000 * 60));
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+        const day = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
-		// Format the date based on the elapsed time
-		if (minutes < 1) {
-			return <span style={{ color: 'blue' }}>Just now</span>;
-		} else if (minutes < 60) {
-			return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-		} else if (hours < 24) {
-			return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-		} else {
-			return `${postDate.toDateString()}`;
-		}
-
-	}
+        // Format the date based on the elapsed time
+        if (minutes < 1) {
+            return <span style={{ color: 'blue' }}>Just now</span>;
+        } else if (minutes < 60) {
+            return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+        } else if (hours < 24) {
+            return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+        } else {
+            return `${day} day${hours !== 1 ? 's' : ''} ago`;
+        }
+    }
 
 	return (
 		<>

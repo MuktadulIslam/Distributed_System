@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cookieParser(config.COOKIE.secret));
 app.use(
     cors({
-        origin: ['http://localhost:4000'],
+        origin: [config.FRONTEND],
         credentials: true
     })
 );
