@@ -11,7 +11,8 @@ const VALID_EMAIL_REQUIRED = "Must be provide a valid email";
 const PORT_NUMBER = Number(process.env.PORT_NUMBER) || 5001;
 const USER_DATABASE = process.env.USER_DATABASE || "userDB";
 const USER_TABLE = process.env.USER_TABLE || "users";
-
+const USER_DATABASE_URI = process.env.USER_DATABASE_URI || 'mongodb://localhost:6001/';
+const FRONTEND = process.env.FRONTEND || 'http://localhost:4000';
 
 const JWT = {
     secretKey: "c9a892edd8c92308e8476126a9c0e14de0c0089f0cb451912c96743f0f51f30c65a9a8b8656f68a7f29e8815fee263d307b7d7c9b6324b40cad7a7bf6243cd91",
@@ -34,5 +35,7 @@ module.exports = {
     EMAIL_REQUIRED,
     VALID_EMAIL_REQUIRED,
     JWT,
-    COOKIE
+    COOKIE,
+    FRONTEND,
+    USER_DATABASE_URI
 }

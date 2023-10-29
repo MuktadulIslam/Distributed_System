@@ -31,7 +31,7 @@ app.get("/post/:id", authValidator, sendPost)
 
 
 async function startTheServer() {
-    await createMongoDatabase();
+    await createMongoDatabase();    // comment-in this line while creating docker compose
     await connectToDatabase();
     await createBucketIfNotExists(POSTS_BUCKET);
     await app.listen(config.PORT_NUMBER, () => {

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const { USER_DATABASE } = require("../config/config.js")
+const { USER_DATABASE,USER_DATABASE_URI } = require("../config/config.js")
 const User = require("./model/User.js")
 
 async function connectToDatabase() {
     try {
-        await mongoose.connect('mongodb://localhost:6001/' + USER_DATABASE, {
+        await mongoose.connect(USER_DATABASE_URI + USER_DATABASE, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

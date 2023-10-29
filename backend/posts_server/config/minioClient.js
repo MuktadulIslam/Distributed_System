@@ -1,17 +1,17 @@
 const Minio = require("minio");
+const dotenv = require('dotenv').config();
 
 // const POSTS_BUCKET = "postimages";
 const POSTS_BUCKET = "postimages";
-const MINIO_URL = 'http://127.0.0.1:9000'
 
 const minioClient = new Minio.Client({
-    endPoint: '127.0.0.1',
-    port: 9000,
+    endPoint: process.env.MINIO_ENDPOINT,
+    port: Number(process.env.MINIO_PORT),
     useSSL: false,
-    accessKey: "minioadmin",
-    secretKey: "minioadmin",
+    accessKey: process.env.MINIO_ACCESSKEY,
+    secretKey: process.env.MINIO_SECRETKEY,
 });
 
 module.exports = {
-    minioClient, POSTS_BUCKET, MINIO_URL
+    minioClient, POSTS_BUCKET
 }

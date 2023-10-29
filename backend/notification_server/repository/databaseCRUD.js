@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const { NOTICATION_DATABASE } = require("../config/config.js")
+const { NOTICATION_DATABASE_URI,NOTICATION_DATABASE } = require("../config/config.js")
 const Notification = require("./model/Notification.js")
 
 async function connectToDatabase() {
     try {
-        await mongoose.connect('mongodb://localhost:6003/' + NOTICATION_DATABASE, {
+        await mongoose.connect(NOTICATION_DATABASE_URI + NOTICATION_DATABASE, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

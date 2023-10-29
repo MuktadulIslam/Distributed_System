@@ -9,6 +9,8 @@ const VALID_EMAIL_REQUIRED = "Must be provide a valid email";
 const PORT_NUMBER = Number(process.env.PORT_NUMBER) || 5003;
 const NOTICATION_DATABASE = process.env.NOTICATION_DATABASE || "notificationDB";
 const NOTICATION_TABLE = process.env.NOTICATION_TABLE || "notifications";
+const NOTICATION_DATABASE_URI = process.env.NOTICATION_DATABASE_URI ||'mongodb://localhost:6003/';
+
 const AUTH_VALIDATION_API = process.env.AUTH_VALIDATION_API || "http://localhost:5001/authentication";
 const USERNAMES_API = process.env.USERNAMES_API || "http://localhost:5001/usersemail";
 const FRONTEND = process.env.FRONTEND || 'http://localhost:4000';
@@ -29,6 +31,7 @@ module.exports = {
     PORT_NUMBER,
     NOTICATION_DATABASE,
     NOTICATION_TABLE,
+    NOTICATION_DATABASE_URI,
     DUPLICATE_EMAIL,
     EMAIL_NOT_FOUND,
     SERVER_ERROR,

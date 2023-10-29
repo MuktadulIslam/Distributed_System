@@ -27,7 +27,7 @@ app.delete('/notification', authValidator, deleteNotification);
 
 
 async function startTheServer() {
-    await createMongoDatabase();
+    await createMongoDatabase();    // comment-in this line while creating docker compose
     await connectToDatabase();
     await app.listen(config.PORT_NUMBER, () => {
         console.log('User Server listening on port ' + config.PORT_NUMBER + '...');

@@ -12,6 +12,8 @@ const VALID_EMAIL_REQUIRED = "Must be provide a valid email";
 const PORT_NUMBER = Number(process.env.PORT_NUMBER) || 5002;
 const POST_DATABASE = process.env.POST_DATABASE || "postDB";
 const POSTS_TABLE = process.env.POSTS_TABLE || "posts";
+const POST_DATABASE_URI = process.env.POST_DATABASE_URI || 'mongodb://localhost:6002/';
+
 const AUTH_VALIDATION_API = process.env.AUTH_VALIDATION_API || "http://localhost:5001/authentication";
 const USERNAMES_API = process.env.USERNAMES_API || "http://localhost:5001/usersemail";
 const NOTIFICATION_API = process.env.NOTIFICATION_API || "http://localhost:5003/notification";
@@ -38,5 +40,6 @@ module.exports = {
     AUTH_VALIDATION_API,
     USERNAMES_API,
     NOTIFICATION_API,
-    FRONTEND
+    FRONTEND,
+    POST_DATABASE_URI
 }

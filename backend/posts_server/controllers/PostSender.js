@@ -1,5 +1,4 @@
 const { getAllPost, findByPostID } = require("../repository/databaseCRUD.js");
-const { minioClient, POSTS_BUCKET } = require('../config/minioClient.js')
 
 async function sendAllPost(req, res) {
     try {

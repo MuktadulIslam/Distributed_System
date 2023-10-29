@@ -1,5 +1,3 @@
-const jwt = require('jsonwebtoken');
-const {JWT} = require("../config/config.js");
 const { decodeToken } = require('../config/tokenAndCookie.js');
 
 async function userAuthentication(req, res) {

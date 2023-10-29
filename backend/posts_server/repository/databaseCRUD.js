@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const { POST_DATABASE } = require("../config/config.js")
+const { POST_DATABASE, POST_DATABASE_URI } = require("../config/config.js")
 const Post = require("./model/Post.js")
 
 async function connectToDatabase() {
     try {
-        await mongoose.connect('mongodb://localhost:6002/' + POST_DATABASE, {
+        await mongoose.connect(POST_DATABASE_URI + POST_DATABASE, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });

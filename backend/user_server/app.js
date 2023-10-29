@@ -18,10 +18,9 @@ const { userAuthentication } = require("./controllers/userAuthentication.js");
 const app = express();
 app.use(express.json());
 app.use(cookieParser(config.COOKIE.secret));
-// app.use(cors())
 app.use(
     cors({
-        origin: ['http://localhost:3000', 'http://localhost:4000'],
+        origin: [config.FRONTEND],
         credentials: true
     })
 );
@@ -37,7 +36,7 @@ app.get("/usersemail", usersEmail);
 
 
 async function startTheServer() {
-    await createMongoDatabase();
+    await createMongoDatabase();    // comment-in this line while creating docker compose
     await connectToDatabase();
     await app.listen(config.PORT_NUMBER, () => {
         console.log('User Server listening on port ' + config.PORT_NUMBER + '...');
