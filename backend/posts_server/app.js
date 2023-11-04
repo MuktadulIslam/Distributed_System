@@ -34,7 +34,7 @@ app.get("/get",async (req, res)=>{
 
 
 async function startTheServer() {
-    // await createMongoDatabase();    // comment-in this line while creating docker compose
+    await createMongoDatabase();    // comment-in this line while creating docker compose
     await connectToDatabase();
     await createBucketIfNotExists(POSTS_BUCKET);
     await app.listen(config.PORT_NUMBER, () => {

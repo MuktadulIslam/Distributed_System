@@ -38,7 +38,7 @@ app.get("/usersemail", usersEmail);
 
 
 async function startTheServer() {
-    // await createMongoDatabase();    // comment-in this line while creating docker compose
+    await createMongoDatabase();    // comment-in this line while creating docker compose
     await connectToDatabase();
     await app.listen(config.PORT_NUMBER, () => {
         console.log('User Server listening on port ' + config.PORT_NUMBER + '...');
