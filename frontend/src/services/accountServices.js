@@ -1,6 +1,5 @@
 import axiosInstance from "../config/axiosInstance.js";
 
-
 export const loginService = async (email, password, navigate, setUser) => {
     try {
         const formData = { email: email, password: password }

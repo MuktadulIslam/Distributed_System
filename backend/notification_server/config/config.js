@@ -13,7 +13,8 @@ const NOTICATION_DATABASE_URI = process.env.NOTICATION_DATABASE_URI ||'mongodb:/
 
 const AUTH_VALIDATION_API = process.env.AUTH_VALIDATION_API || "http://localhost:5001/authentication";
 const USERNAMES_API = process.env.USERNAMES_API || "http://localhost:5001/usersemail";
-const FRONTEND = process.env.FRONTEND || 'http://localhost:4000';
+const FRONTEND1 = process.env.FRONTEND1 || 'http://localhost:4000';
+const FRONTEND2 = process.env.FRONTEND2 || 'http://localhost:80';
 
 const COOKIE = {
     expiryTime: 2 * 24 * 60 * 60,
@@ -43,5 +44,6 @@ module.exports = {
     AUTH_VALIDATION_API,
     USERNAMES_API,
     MAC_NOTIFICATION_AGE,
-    FRONTEND
+    FRONTEND1,
+    FRONTEND2
 }

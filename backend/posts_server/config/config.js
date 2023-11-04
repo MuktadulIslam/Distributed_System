@@ -16,8 +16,9 @@ const POST_DATABASE_URI = process.env.POST_DATABASE_URI || 'mongodb://localhost:
 
 const AUTH_VALIDATION_API = process.env.AUTH_VALIDATION_API || "http://localhost:5001/authentication";
 const USERNAMES_API = process.env.USERNAMES_API || "http://localhost:5001/usersemail";
-const NOTIFICATION_API = process.env.NOTIFICATION_API || "http://localhost:5003/notification";
-const FRONTEND = process.env.FRONTEND || 'http://localhost:4000';
+const NOTIFICATION_API = process.env.NOTIFICATION_API || "http://localhost:5003/notification/notification";
+const FRONTEND1 = process.env.FRONTEND1 || 'http://localhost:4000';
+const FRONTEND2 = process.env.FRONTEND2 || 'http://localhost:80';
 
 const COOKIE = {
     expiryTime: 2*24*60*60,
@@ -40,6 +41,7 @@ module.exports = {
     AUTH_VALIDATION_API,
     USERNAMES_API,
     NOTIFICATION_API,
-    FRONTEND,
+    FRONTEND1,
+    FRONTEND2,
     POST_DATABASE_URI
 }

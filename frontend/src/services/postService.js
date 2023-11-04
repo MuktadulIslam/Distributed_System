@@ -1,8 +1,17 @@
 import axiosInstance from "../config/axiosInstance.js";
 
+// export const makePostByService = async (username, email, articleText, base64Image) => {
 export const makePostByService = async (postData) => {
     try {
-        const response = await axiosInstance.post('/post', postData,{
+        // await makePostByService(user.username, user.email, articleText, base64Image);
+        // console.log(postData)
+        // const postData = {authorName: username, authorEmail: email, article: articleText, image: base64Image}
+        // const postData = new FormData();
+		// postData.append('article', articleText);
+		// postData.append('authorEmail', email);
+		// postData.append('authorName', username);
+        // postData.append('image', null);
+        const response = await axiosInstance.post('/post/post',postData,{
             params: {username: postData.get('authorName')}
         }).then((response) => {
             if (response.status == 200) {
@@ -26,9 +35,10 @@ export const makePostByService = async (postData) => {
 }
 
 
+
 export const getAllPostByService = async (username) => {
     try {
-        const response = await axiosInstance.get('/post', {
+        const response = await axiosInstance.get('/post/post', {
             params: { username: username }
         });
         if (response.status == 200) {

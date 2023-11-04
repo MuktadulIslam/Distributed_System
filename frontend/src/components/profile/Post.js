@@ -40,6 +40,7 @@ export default function Post(props) {
 		if (imageFile !== null) postData.append('image', imageFile);
 
 		await makePostByService(postData);
+		// await makePostByService(user.username, user.email, articleText, base64Image);
 
 		removeImage();
 		document.getElementById('articleTextarea').value = '';

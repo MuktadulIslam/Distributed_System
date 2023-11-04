@@ -56,7 +56,6 @@ services:
       - "4000:4000"
     environment:
       PORT: 4000
-      REACT_APP_BACKEND_BASEURL: 'http://nginx/'
     networks:
       - internalnet
 
@@ -73,7 +72,8 @@ services:
       USER_DATABASE: userDB
       USER_TABLE: users
       USER_DATABASE_URI: mongodb://user_mongodb:27017/
-      FRONTEND: http://frontend:4000
+      FRONTEND1: http://localhost:4000
+      FRONTEND2: http://localhost:80
     depends_on:
       - user_mongodb
     networks:
@@ -95,7 +95,8 @@ services:
       AUTH_VALIDATION_API: http://user_server:5001/authentication
       USERNAMES_API: http://user_server:5001/usersemail
       NOTIFICATION_API: http://notification_server:5003/notification
-      FRONTEND: http://frontend:4000
+      FRONTEND1: http://localhost:4000
+      FRONTEND2: http://localhost:80
 
       MINIO_ENDPOINT: minio
       MINIO_PORT: 9000
@@ -121,11 +122,12 @@ services:
       PORT_NUMBER: 5003
       NOTICATION_DATABASE: notificationDB
       NOTICATION_TABLE: notifications
-      NOTICATION_DATABASE_URI: mongodb://localhost:6003/
+      NOTICATION_DATABASE_URI: mongodb://notification_mongo_db:27017/
 
       AUTH_VALIDATION_API: http://user_server:5001/authentication
       USERNAMES_API: http://user_server:5001/usersemail
-      FRONTEND: http://frontend:4000
+      FRONTEND1: http://localhost:4000
+      FRONTEND2: http://localhost:80
 
     depends_on:
       - notification_mongo_db
@@ -145,7 +147,7 @@ services:
       dockerfile: Dockerfile
     
     ports:
-      - '3050:80'
+      - '80:80'
     networks:
       - internalnet
 
@@ -153,6 +155,7 @@ services:
 networks:
   internalnet:
     driver: bridge
+    # external: true
 
 
 volumes:
