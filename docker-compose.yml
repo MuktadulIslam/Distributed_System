@@ -1,3 +1,172 @@
+# services:
+#   # Databases
+#   user_mongodb:
+#     image: mongo:6.0
+#     restart: always
+#     ports:
+#       - "6001:27017"
+#     volumes:
+#       - user_mongodb:/data/db 
+#     networks:
+#       - internalnet
+
+#   posts_mongodb:
+#     image: mongo:6.0
+#     restart: always
+#     ports:
+#       - "6002:27017"
+#     volumes:
+#       - posts_mongodb:/data/db 
+#     networks:
+#       - internalnet
+  
+#   notification_mongo_db:
+#     image: mongo:6.0
+#     restart: always
+#     ports:
+#       - "6003:27017"
+#     volumes:
+#       - notification_mongo_db:/data/db 
+#     networks:
+#       - internalnet
+
+#   minio:
+#     image: minio/minio
+#     restart: always
+#     ports:
+#       - "9000:9000"
+#       - "9001:9001"
+#     volumes:
+#       - minio-data:/data
+#     environment:
+#       MINIO_ROOT_USER: 44Ede1q8sa8uRHXBZ52K
+#       MINIO_ROOT_PASSWORD: 8H5S84ijB5wRES2YgTRELVowwNj4mLk8ZiYV2kkr
+#     command: server --console-address ":9001" /data
+#     networks:
+#       - internalnet
+
+  
+
+#   # Frontend Server
+#   frontend:
+#     build:
+#       context: ./frontend
+#       dockerfile: Dockerfile
+#     ports:
+#       - "4000:4000"
+#     environment:
+#       PORT: 4000
+#     networks:
+#       - internalnet
+
+
+#   # Backend Servers
+#   user_server:
+#     build:
+#       context: ./backend/user_server
+#       dockerfile: Dockerfile
+#     ports:
+#       - "5001:5001"
+#     environment:
+#       PORT_NUMBER: 5001
+#       USER_DATABASE: userDB
+#       USER_TABLE: users
+#       USER_DATABASE_URI: mongodb://user_mongodb:27017/
+#       FRONTEND1: http://localhost:4000
+#       FRONTEND2: http://localhost:80
+#     depends_on:
+#       - user_mongodb
+#     networks:
+#       - internalnet
+
+
+#   posts_server:
+#     build:
+#       context: ./backend/posts_server
+#       dockerfile: Dockerfile
+#     ports:
+#       - "5002:5002"
+#     environment:
+#       PORT_NUMBER: 5002
+#       POST_DATABASE: postDB
+#       POSTS_TABLE: posts
+#       POST_DATABASE_URI: mongodb://posts_mongodb:27017/
+
+#       AUTH_VALIDATION_API: http://user_server:5001/authentication
+#       USERNAMES_API: http://user_server:5001/usersemail
+#       NOTIFICATION_API: http://notification_server:5003/notification
+#       FRONTEND1: http://localhost:4000
+#       FRONTEND2: http://localhost:80
+
+#       MINIO_ENDPOINT: minio
+#       MINIO_PORT: 9000
+#       MINIO_ACCESSKEY: 44Ede1q8sa8uRHXBZ52K
+#       MINIO_SECRETKEY: 8H5S84ijB5wRES2YgTRELVowwNj4mLk8ZiYV2kkr
+    
+#     depends_on:
+#       - posts_mongodb
+#       - minio
+#       - notification_server
+#       - user_server
+#     networks:
+#       - internalnet
+  
+
+#   notification_server:
+#     build:
+#       context: ./backend/notification_server
+#       dockerfile: Dockerfile
+#     ports:
+#       - "5003:5003"
+#     environment:
+#       PORT_NUMBER: 5003
+#       NOTICATION_DATABASE: notificationDB
+#       NOTICATION_TABLE: notifications
+#       NOTICATION_DATABASE_URI: mongodb://notification_mongo_db:27017/
+
+#       AUTH_VALIDATION_API: http://user_server:5001/authentication
+#       USERNAMES_API: http://user_server:5001/usersemail
+#       FRONTEND1: http://localhost:4000
+#       FRONTEND2: http://localhost:80
+
+#     depends_on:
+#       - notification_mongo_db
+#       - user_server
+#     networks:
+#       - internalnet
+  
+#   nginx:
+#     depends_on:
+#       - frontend
+#       - user_server
+#       - posts_server
+#       - notification_server
+#     restart: always
+#     build: 
+#       context: ./nginx-server
+#       dockerfile: Dockerfile
+    
+#     ports:
+#       - '80:80'
+#     networks:
+#       - internalnet
+
+
+# networks:
+#   internalnet:
+#     driver: bridge
+#     # external: true
+
+
+# volumes:
+#   user_mongodb: {}
+#   posts_mongodb: {}
+#   notification_mongo_db: {}
+#   minio-data: {}
+
+
+
+
 services:
   # Databases
   user_mongodb:
@@ -49,9 +218,7 @@ services:
 
   # Frontend Server
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: muktadulislam/minilinkedin_frontendserver:v1.0.4
     ports:
       - "4000:4000"
     environment:
@@ -62,9 +229,7 @@ services:
 
   # Backend Servers
   user_server:
-    build:
-      context: ./backend/user_server
-      dockerfile: Dockerfile
+    image: muktadulislam/minilinkedin_user_backendserver:v2.0.3
     ports:
       - "5001:5001"
     environment:
@@ -81,9 +246,7 @@ services:
 
 
   posts_server:
-    build:
-      context: ./backend/posts_server
-      dockerfile: Dockerfile
+    image: muktadulislam/minilinkedin_post_backendserver:v3.0.2
     ports:
       - "5002:5002"
     environment:
@@ -113,9 +276,7 @@ services:
   
 
   notification_server:
-    build:
-      context: ./backend/notification_server
-      dockerfile: Dockerfile
+    image: muktadulislam/minilinkedin_notification_backendserver:v3.0.1
     ports:
       - "5003:5003"
     environment:
@@ -136,15 +297,13 @@ services:
       - internalnet
   
   nginx:
+    image: muktadulislam/minilinkedin_nginxserver:v3.0.2
     depends_on:
       - frontend
       - user_server
       - posts_server
       - notification_server
     restart: always
-    build: 
-      context: ./nginx-server
-      dockerfile: Dockerfile
     
     ports:
       - '80:80'
